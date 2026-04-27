@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white font-sans">
+
+  <!-- Header -->
+  <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
+    <h1 class="text-2xl tracking-wide">Wireframe · Admin Dashboard</h1>
+    <div class="flex items-center gap-6 text-sm text-gray-300">
+      <span>👤 Admin</span>
+      <span>⚙️</span>
+      <span class="cursor-pointer hover:text-white">Logout</span>
+    </div>
+  </div>
+
+  <div class="flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 border-r border-gray-800 min-h-screen">
+      <div class="p-4 border-b border-gray-800 text-gray-300">
+        Admin Panel · Pieach CMS
+      </div>
+
+      <nav class="flex flex-col text-gray-400 text-sm">
+        <a class="px-6 py-3 bg-teal-900/40 border-l-4 border-teal-400 text-white">Dashboard</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Projects</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Team</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Careers</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Appointments</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Blog</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Contact</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Media</a>
+        <a class="px-6 py-3 hover:bg-gray-900">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+
+      <!-- Top Cards -->
+      <div class="grid grid-cols-4 gap-6 mb-8">
+        
+        <div class="border border-gray-800 p-6 relative">
+          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
+          <div class="text-center text-3xl font-semibold mb-2">128</div>
+          <p class="text-center text-gray-400 text-sm">Total Projects</p>
+        </div>
+
+        <div class="border border-gray-800 p-6 relative">
+          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
+          <div class="text-center text-3xl font-semibold mb-2">42</div>
+          <p class="text-center text-gray-400 text-sm">Appointments</p>
+        </div>
+
+        <div class="border border-gray-800 p-6 relative">
+          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
+          <div class="text-center text-3xl font-semibold mb-2">17</div>
+          <p class="text-center text-gray-400 text-sm">Messages</p>
+        </div>
+
+        <div class="border border-gray-800 p-6 relative">
+          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
+          <div class="text-center text-3xl font-semibold mb-2">9</div>
+          <p class="text-center text-gray-400 text-sm">Blog Posts</p>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sections -->
+      <div class="grid grid-cols-2 gap-6">
+
+        <!-- Upcoming Appointments -->
+        <div class="border border-gray-800">
+          <div class="p-4 border-b border-gray-800 flex items-center">
+            <div class="w-1 h-6 bg-teal-400 mr-3"></div>
+            <h2 class="text-lg">Upcoming Appointments</h2>
+          </div>
+
+          <div class="p-4 space-y-4 text-sm text-gray-400">
+            <div class="flex justify-between">
+              <span>John Doe</span>
+              <span>May 3, 2026</span>
+              <span class="text-yellow-400">Pending</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Sarah Williams</span>
+              <span>May 5, 2026</span>
+              <span class="text-green-400">Confirmed</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Michael Brown</span>
+              <span>May 6, 2026</span>
+              <span class="text-red-400">Cancelled</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Emma Johnson</span>
+              <span>May 8, 2026</span>
+              <span class="text-green-400">Confirmed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Messages -->
+        <div class="border border-gray-800">
+          <div class="p-4 border-b border-gray-800 flex items-center">
+            <div class="w-1 h-6 bg-teal-400 mr-3"></div>
+            <h2 class="text-lg">Recent Messages</h2>
+          </div>
+
+          <div class="p-4 space-y-4 text-sm text-gray-400">
+            <div class="flex justify-between">
+              <span>Alice Smith</span>
+              <span>Project Inquiry</span>
+              <span>May 1</span>
+            </div>
+            <div class="flex justify-between">
+              <span>David Lee</span>
+              <span>Meeting Follow-up</span>
+              <span>May 2</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Chris Evans</span>
+              <span>Quote Request</span>
+              <span>May 2</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Olivia Brown</span>
+              <span>New Collaboration</span>
+              <span>May 3</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
