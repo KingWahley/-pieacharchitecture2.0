@@ -4,23 +4,41 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PIEACH ARCHITECTURE</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <link rel="icon" type="image/png" href="">
 <style>
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+    --text-muted: #666666;
+    --card-bg: #f5f5f7;
+    --border: rgba(0,0,0,0.1);
+    --accent: #d4af37;
+  }
+
+  .dark-mode {
+    --bg: #0a0a0a;
+    --text: #ffffff;
+    --text-muted: #aaaaaa;
+    --card-bg: #111111;
+    --border: rgba(255,255,255,0.1);
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     cursor: none;
   }
 
   body {
-    background: #f5f5f7;
-    color: #111;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.5s ease, color 0.5s ease;
     overflow-x: hidden;
   }
 
@@ -73,9 +91,10 @@
 }
 
 .logo {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-family: "Outfit", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 4px;
   color: white;
 }
 
@@ -156,24 +175,44 @@
 }
 
 .nav-cta {
-  padding: 10px 22px;
-  border-radius: 0;
-  font-size: 13px;
+  padding: 12px 28px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
   font-weight: 600;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
   color: white;
-
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.3);
-
-  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .nav-cta:hover {
-  background: rgba(255,255,255,0.2);
-  border-color: rgba(255,255,255,0.6);
+  background: white;
+  color: black;
+  border-color: white;
 }
+
+.theme-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+.dark-mode .sun-icon { display: none !important; }
+.dark-mode .moon-icon { display: block !important; }
 
 /* MOBILE */
 @media (max-width: 768px) {
@@ -205,59 +244,60 @@
   /* HERO CARD */
   .glass-card {
     position: absolute;
-    top: 50%;
+    top: 58%;
     left: 60px;
     transform: translateY(-50%);
-    width: 480px;
+    width: 580px;
     z-index: 10;
     color: white;
   }
 
-  .hero-tag {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    opacity: 0.8;
-  }
 
   .hero-title {
-    font-size: 64px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    
+    font-family: "Outfit", sans-serif;
+    font-size: 84px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    letter-spacing: -3px;
+  }
+
+  .hero-line {
+    display: inline-block;
   }
 
   .hero-desc {
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.6;
     opacity: 0.8;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
+    max-width: 540px;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 32px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
+    padding: 16px 40px;
+    background: white;
+    color: black;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid white;
     border-radius: 0;
     text-decoration: none;
-    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+    /* Removed transition: all to prevent GSAP conflicts */
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    opacity: 0; /* Set initial opacity for GSAP to take over */
   }
 
   .btn:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
+    color: white;
   }
 
   /* COLOSSEUM IMAGES */
@@ -450,11 +490,12 @@
   }
 
   .brand-headline {
+    font-family: "Outfit", sans-serif;
     font-size: 8vw;
     line-height: 0.9;
-    font-weight: 500;
-    letter-spacing: -3px;
-    color: #111;
+    font-weight: 600;
+    letter-spacing: -4px;
+    color: var(--text);
     max-width: 1200px;
     margin: 0 auto 60px auto;
   }
@@ -479,7 +520,7 @@
   .brand-floating-texts p {
     font-size: 14px;
     line-height: 1.5;
-    color: #666;
+    color: var(--text-muted);
     max-width: 300px;
   }
 
@@ -498,7 +539,8 @@
   }
 
   .brand-card {
-    background: #e5e5e5;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 0;
     padding: 32px;
     min-height: 260px;
@@ -507,6 +549,14 @@
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .brand-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    background: var(--bg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
   }
 
   .brand-card.has-bg {
@@ -541,17 +591,17 @@
     display: inline-block;
     align-self: flex-start;
     padding: 6px 16px;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
     border-radius: 0;
     font-size: 12px;
-    color: #333;
+    color: var(--text);
     z-index: 2;
   }
 
   .card-title {
     font-size: 24px;
     font-weight: 500;
-    color: #111;
+    color: var(--text);
     letter-spacing: -1px;
     z-index: 2;
   }
@@ -566,7 +616,7 @@
 
   .card-desc {
     font-size: 14px;
-    color: #666;
+    color: var(--text-muted);
     line-height: 1.5;
     margin-top: 24px;
   }
@@ -594,10 +644,11 @@
 
   /* CUSTOM SERVICES SECTION */
   .custom-services-section {
-    background: #f5f5f7;
+    background: var(--card-bg);
     padding: 80px 40px;
     max-width: 1400px;
     margin: 0 auto;
+    transition: background 0.3s ease;
   }
 
   .services-top-row {
@@ -608,25 +659,27 @@
   }
 
   .services-headline {
+    font-family: "Outfit", sans-serif;
     font-size: 56px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.1;
     letter-spacing: -2px;
-    color: #111;
+    color: var(--text);
   }
 
   .services-right-header {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-end;
     padding-top: 10px;
+    text-align: right;
   }
 
   .services-paragraph {
     font-size: 16px;
     line-height: 1.5;
-    color: #444;
+    color: var(--text-muted);
     max-width: 400px;
     margin-bottom: 30px;
     font-weight: 500;
@@ -634,35 +687,33 @@
 
   .services-start-btn {
     display: inline-flex;
-    align-items: stretch;
-    background: #d4af37;
-    border-radius: 0;
+    align-items: center;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid var(--accent);
     text-decoration: none;
-    overflow: hidden;
-    transition: transform 0.3s, background 0.3s;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
 
   .services-start-btn:hover {
-    transform: translateY(-2px);
-    background: #b5952f;
-  }
-
-  .services-start-btn .btn-text {
-    color: white;
-    font-size: 15px;
-    font-weight: 400;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
+    background: transparent;
+    color: var(--text);
   }
 
   .services-start-btn .btn-icon {
-    background: #b5952f;
-    color: white;
-    padding: 0 16px;
+    margin-left: 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .services-start-btn:hover .btn-icon {
+    transform: translateX(5px);
   }
 
   .services-bottom-row {
@@ -706,12 +757,18 @@
   }
 
   .service-list-item {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid var(--border);
     padding: 30px 0;
+    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .service-list-item:hover {
+    padding-left: 20px;
+    border-top-color: var(--accent);
   }
 
   .service-list-item:last-child {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--border);
   }
 
   .service-list-meta {
@@ -731,7 +788,7 @@
   .service-list-title {
     font-size: 36px;
     font-weight: 500;
-    color: #111;
+    color: var(--text);
     letter-spacing: -1px;
   }
 
@@ -767,43 +824,27 @@
     margin-bottom: 80px;
   }
 
-  .btn-pill {
-    display: inline-block;
-    padding: 10px 24px;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 0;
-    color: #111;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.3s, color 0.3s, border-color 0.3s;
-  }
-
-  .btn-pill:hover {
-    background: #d4af37;
-    border-color: #d4af37;
-    color: white;
-  }
 
   .projects-title-area {
-    text-align: center;
+    text-align: left;
     max-width: 500px;
   }
 
   .projects-headline {
-    font-size: 40px;
-    font-weight: 500;
-    letter-spacing: -1px;
-    color: #111;
+    font-family: "Outfit", sans-serif;
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    color: var(--text);
     margin-bottom: 16px;
-    text-align: right;
+    text-align: left;
   }
 
   .projects-subtitle {
     font-size: 14px;
     color: #666;
     line-height: 1.5;
-    text-align: right;
+    text-align: left;
   }
 
   .projects-grid-container {
@@ -849,7 +890,7 @@
     background: transparent;
     cursor: pointer;
     color: #111;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
   }
 
   .nav-btn:hover {
@@ -896,7 +937,7 @@
     justify-content: center;
     opacity: 0;
     transform: translateY(-10px);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: background 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
   }
 
   .project-item:hover .item-link-btn {
@@ -1044,71 +1085,262 @@
     transform: scale(1.05);
   }
 
+  /* BLOG SECTION */
+  .blog-section {
+    padding: 140px 60px;
+    background: var(--bg);
+  }
+
+  .blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+
+  .blog-title-area {
+    max-width: 600px;
+  }
+
+  .blog-tag {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .blog-headline {
+    font-family: "Outfit", sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: var(--text);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    group: hover;
+  }
+
+  .blog-image-wrapper {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: var(--card-bg);
+  }
+
+  .blog-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .blog-card:hover .blog-image-wrapper img {
+    transform: scale(1.1);
+  }
+
+  .blog-date {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .blog-post-title {
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    color: var(--text);
+    transition: color 0.3s ease;
+  }
+
+  .blog-card:hover .blog-post-title {
+    color: var(--accent);
+  }
+
+  .blog-post-preview {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-read-more {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    position: relative;
+    padding-bottom: 5px;
+  }
+
+  .blog-read-more::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 1.5px;
+    background: var(--accent);
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .blog-card:hover .blog-read-more::after {
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+    .blog-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+    .blog-headline {
+      font-size: 40px;
+    }
+  }
+
   /* CTA SECTION */
   .cta-section {
     position: relative;
     width: 100%;
-    padding: 120px 60px;
+    padding: 160px 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #f5f5f7;
+    background: var(--card-bg);
+    transition: background 0.3s ease;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 120%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://i.pinimg.com/736x/32/fd/3a/32fd3a3889e8ed198b4cb68d0df6b0c0.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+    animation: cta-motion 12s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dark-mode .cta-section::before {
+    opacity: 0.6;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.pinimg.com/736x/32/fd/3a/32fd3a3889e8ed198b4cb68d0df6b0c0.jpg');
+    filter: invert(1) brightness(0.6);
+  }
+
+  @keyframes cta-motion {
+    0% { transform: translateX(-2%); }
+    100% { transform: translateX(2%); }
   }
 
   .cta-card {
+    position: relative;
     text-align: center;
-    color: #111;
-    max-width: 600px;
+    max-width: 700px;
+    z-index: 1;
   }
 
   .cta-title {
-    font-size: 40px;
-    font-weight: 800;
-    margin-bottom: 20px;
+    font-family: "Outfit", sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: -2px;
+    line-height: 1.1;
   }
 
   .cta-desc {
-    font-size: 16px;
-    margin-bottom: 40px;
-    opacity: 0.9;
+    font-size: 18px;
+    margin-bottom: 48px;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* FOOTER */
   .footer-section {
-    background: #111;
-    color: white;
-    padding: 80px 60px 40px;
+    background: var(--bg);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+    padding: 100px 60px 40px;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   .footer-top {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
+    gap: 80px;
     max-width: 1400px;
-    margin: 0 auto 60px;
+    margin: 0 auto 100px;
   }
 
   .footer-col h4 {
-    font-size: 14px;
+    font-family: "Outfit", sans-serif;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 24px;
-    opacity: 0.6;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    color: var(--text-muted);
+    font-weight: 700;
   }
 
   .footer-col a {
     display: block;
-    color: white;
+    color: var(--text);
     text-decoration: none;
     margin-bottom: 16px;
     font-size: 15px;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
 
   .footer-col a:hover {
-    opacity: 1;
+    color: var(--accent);
   }
 
   .footer-desc {
@@ -1175,7 +1407,10 @@
       <li><a href="#">Contact</a></li>
     </ul>
 
-    <a href="#" class="nav-cta">Book Appointment</a>
+    <div class="nav-actions" style="display: flex; align-items: center; gap: 20px;">
+      
+      <a href="#" class="nav-cta">Book Appointment</a>
+    </div>
   </div>
 </nav>
 <div class="cursor-dot"></div>
@@ -1185,8 +1420,10 @@
 
   <!-- HERO CARD -->
   <div class="glass-card">
-    <div class="hero-tag">PIEACH ARCHITECTURE</div>
-    <h1 class="hero-title">BEYOND<br>ARCHITECTURE</h1>
+    <h1 class="hero-title">
+      <span class="hero-line">BEYOND</span><br>
+      <span class="hero-line">ARCHITECTURE</span>
+    </h1>
     <p class="hero-desc">We design spaces that tell your story, transforming ideas into striking architectural experiences. From concept to landmark, we push boundaries to create spaces that inspire and endure.</p>
     <a href="#" class="btn">Contact Us</a>
   </div>
@@ -1266,9 +1503,8 @@
     </div>
     <div class="services-list-col">
       <div class="service-list-item gs-reveal">
-        <div class="service-list-meta">( Service 01 )</div>
         <div class="service-list-main">
-          <h3 class="service-list-title">Urban Planning</h3>
+          <h3 class="service-list-title">Interior Architecture</h3>
           <a href="#" class="service-icon-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
@@ -1276,9 +1512,8 @@
       </div>
       
       <div class="service-list-item gs-reveal">
-        <div class="service-list-meta">( Service 02 )</div>
         <div class="service-list-main">
-          <h3 class="service-list-title">Residential</h3>
+          <h3 class="service-list-title">Project Management</h3>
           <a href="#" class="service-icon-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
@@ -1286,9 +1521,8 @@
       </div>
 
       <div class="service-list-item gs-reveal">
-        <div class="service-list-meta">( Service 03 )</div>
         <div class="service-list-main">
-          <h3 class="service-list-title">Commercial</h3>
+          <h3 class="service-list-title">Landscape Design</h3>
           <a href="#" class="service-icon-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
@@ -1296,9 +1530,8 @@
       </div>
 
       <div class="service-list-item gs-reveal">
-        <div class="service-list-meta">( Service 04 )</div>
         <div class="service-list-main">
-          <h3 class="service-list-title">Landmarks</h3>
+          <h3 class="service-list-title">Sustainable Design</h3>
           <a href="#" class="service-icon-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
@@ -1311,11 +1544,17 @@
 <!-- OUR PROJECTS SECTION -->
 <section class="section custom-projects-section">
   <div class="projects-top-header gs-reveal">
-    <a href="#" class="btn-pill">See All Projects</a>
+    
     <div class="projects-title-area">
-      <h2 class="projects-headline"><span style="color: #111;">Recent</span> projects collection</h2>
+      <h2 class="projects-headline"><span class="text-accent">Recent</span> projects collection</h2>
       <p class="projects-subtitle">From minimalist residential spaces to iconic commercial landmarks — elevate your space with sustainable design.</p>
     </div>
+    <a href="#" class="services-start-btn">
+      See All Projects
+      <span class="btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M5 12h15"/></svg>
+      </span>
+    </a>
   </div>
 
   <div class="projects-grid-container">
@@ -1426,21 +1665,85 @@
   </div>
 </section>
 
+<!-- BLOG SECTION -->
+<section class="blog-section" id="blog">
+  <div class="blog-header">
+    <div class="blog-title-area gs-reveal">
+      <span class="blog-tag">Studio Journal</span>
+      <h2 class="blog-headline">Architectural <span class="text-accent">Perspectives</span></h2>
+    </div>
+    <div class="gs-reveal">
+      <a href="#" class="services-start-btn">
+        View All Articles
+        <span class="btn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M5 12h15"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="blog-grid">
+    <!-- Post 1 -->
+    <a href="#" class="blog-card gs-reveal">
+      <div class="blog-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=2074&auto=format&fit=crop" alt="Sustainable Architecture">
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Oct 12, 2026 / Sustainability</span>
+        <h3 class="blog-post-title">The Future of Minimalist Living: Sustainable Architecture in 2026</h3>
+        <p class="blog-post-preview">Explore how emerging green technologies and minimalist design principles are converging to create the next generation of eco-conscious residential spaces.</p>
+        <div class="blog-read-more">Read Full Article</div>
+      </div>
+    </a>
+
+    <!-- Post 2 -->
+    <a href="#" class="blog-card gs-reveal">
+      <div class="blog-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" alt="Interior Design">
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Sep 28, 2026 / Interior</span>
+        <h3 class="blog-post-title">Light and Space: The Psychology of Open-Plan Residential Design</h3>
+        <p class="blog-post-preview">How the strategic use of natural light and fluid transitions between spaces can dramatically improve mental well-being and daily productivity.</p>
+        <div class="blog-read-more">Read Full Article</div>
+      </div>
+    </a>
+
+    <!-- Post 3 -->
+    <a href="#" class="blog-card gs-reveal">
+      <div class="blog-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Urban Architecture">
+      </div>
+      <div class="blog-content">
+        <span class="blog-date">Sep 15, 2026 / Urbanism</span>
+        <h3 class="blog-post-title">Brutalist Revival: How Concrete is Shaping Modern Urban Landscapes</h3>
+        <p class="blog-post-preview">A look at the resurgence of raw material honesty and structural expressionism in contemporary commercial and public architecture.</p>
+        <div class="blog-read-more">Read Full Article</div>
+      </div>
+    </a>
+  </div>
+</section>
+
 <!-- CTA SECTION -->
-<!-- <section class="cta-section gs-reveal">
+<section class="section cta-section gs-reveal">
   <div class="cta-card">
     <h2 class="cta-title">Ready to build your vision?</h2>
     <p class="cta-desc">Let's collaborate to create architecture that makes a statement.</p>
-    <a href="#" class="btn-dark">Book an Appointment</a>
+    <a href="#" class="services-start-btn">
+      Book an Appointment
+      <span class="btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M5 12h15"/></svg>
+      </span>
+    </a>
   </div>
-</section> -->
+</section>
 
 <!-- FOOTER -->
-<!-- <footer class="footer-section">
+<footer class="footer-section">
   <div class="footer-top">
     <div class="footer-col">
       <div class="logo">PIEACH</div>
-      <p class="footer-desc">Redefining architectural boundaries.</p>
+      <p class="footer-desc">Redefining architectural boundaries through visionary design and sustainable excellence.</p>
     </div>
     <div class="footer-col">
       <h4>Studio</h4>
@@ -1458,7 +1761,7 @@
   <div class="footer-bottom">
     <p>&copy; 2026 PIEACH Architecture. All rights reserved.</p>
   </div>
-</footer> -->
+</footer>
 
 <script>
   const wrapper = document.querySelector('.container');
@@ -1597,6 +1900,31 @@
     );
   });
 
+  // Smooth Hero Entrance Animation
+  const heroTl = gsap.timeline({delay: 0.6});
+  
+  heroTl.from(".hero-line", {
+    y: 30,
+    opacity: 0,
+    duration: 1.2,
+    stagger: 0.2,
+    ease: "power3.out"
+  })
+  .from(".hero-desc", {
+    y: 20,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+  }, "-=0.8")
+  .fromTo(".btn", 
+    { y: 20, autoAlpha: 0 },
+    {
+      y: 0,
+      autoAlpha: 1,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=0.7");
+
   // Highlight Cards Stagger Animation
   const brandCards = document.querySelectorAll('.brand-card');
   if (brandCards.length > 0) {
@@ -1629,7 +1957,64 @@
       }
     });
   });
-</script>
 
+  // Magnetic Button Effect
+  const allButtons = document.querySelectorAll('.nav-cta, .btn, .services-start-btn, .btn-pill, .nav-btn, .service-icon-btn, .item-link-btn');
+  
+  allButtons.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      gsap.to(btn, {
+        x: x * 0.3,
+        y: y * 0.3,
+        scale: 1.05,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        ease: "elastic.out(1, 0.3)"
+      });
+    });
+  });
+
+  // Theme Toggle Functionality
+  const themeBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+  
+  // Check for saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+  }
+
+  themeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Save theme preference
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+    
+    // Animate button
+    gsap.from(themeBtn, {
+      rotate: 180,
+      duration: 0.5,
+      ease: "back.out"
+    });
+  });
+
+</script>
 </body>
 </html>
