@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PIEACH ARCHITECTURE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<link rel="icon" type="image/png" href="">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    cursor: none;
+  }
+
+  body {
+    background: #f5f5f7;
+    color: #111;
+    overflow-x: hidden;
+  }
+
+
+  /* NAVBAR */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 60px;
+  z-index: 1000;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+.nav-cta {
+  padding: 10px 22px;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+
+  transition: all 0.3s;
+}
+
+.nav-cta:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+}
+  .container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    padding: 40px 60px;
+    overflow: hidden;
+  }
+
+  /* HERO CARD */
+  .glass-card {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    width: 480px;
+    z-index: 10;
+    color: white;
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .hero-title {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 0;
+    text-decoration: none;
+    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* COLOSSEUM IMAGES */
+  .colosseum-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .colosseum-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 80%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .colosseum {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+
+
+  .colosseum-reveal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(circle 120px at var(--x, -100%) var(--y, -100%), black 60%, transparent 100%);
+    mask-image: radial-gradient(circle 120px at var(--x, -100%) var(--y, -100%), black 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .colosseum-reveal.visible {
+    opacity: 1;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    mix-blend-mode: difference;
+    transition: opacity 0.3s;
+  }
+
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #d4af37;
+    transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
+  }
+
+  .cursor-ring.hovering {
+    width: 60px;
+    height: 60px;
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.8);
+    backdrop-filter: blur(4px);
+  }
+
+  .cursor-dot.hovering {
+    opacity: 0;
+  }
+
+  /* MOBILE RESPONSIVENESS */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+
+    .glass-card {
+      width: calc(100% - 40px);
+      left: 20px;
+      padding: 30px;
+      bottom: 40px;
+      top: auto;
+      transform: none;
+    }
+
+    .hero-title {
+      font-size: 38px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .colosseum-wrapper::after {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0) 80%);
+    }
+  }
+
+  /* DISABLE CUSTOM CURSOR ON TOUCH DEVICES */
+  @media (hover: none) and (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
+    .cursor-dot,
+    .cursor-ring {
+      display: none !important;
+    }
+  }
+  /* GLOBAL SECTION STYLES */
+  .section {
+    padding: 80px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  .section-title {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 30px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 40px;
+  }
+
+  .btn-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    background: #d4af37;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 0;
+    text-decoration: none;
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .btn-dark:hover {
+    transform: translateY(-2px);
+    background: #b5952f;
+  }
+
+  /* ABOUT BRAND SECTION */
+  .about-brand-section {
+    padding: 120px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .brand-hero-typography {
+    text-align: center;
+    margin-bottom: 100px;
+    position: relative;
+  }
+
+  .brand-headline {
+    font-size: 8vw;
+    line-height: 0.9;
+    font-weight: 500;
+    letter-spacing: -3px;
+    color: #111;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+  }
+
+  @media (min-width: 1200px) {
+    .brand-headline { font-size: 96px; }
+  }
+
+  .text-accent {
+    color: #d4af37;
+  }
+
+  .brand-floating-texts {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+
+  .brand-floating-texts p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+    max-width: 300px;
+  }
+
+  .brand-text-left {
+    margin-right: auto;
+  }
+
+  .brand-text-right {
+    margin-left: auto;
+  }
+
+  .brand-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .brand-card {
+    background: #e5e5e5;
+    border-radius: 0;
+    padding: 32px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-card.has-bg {
+    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover no-repeat;
+  }
+
+  .brand-card.has-bg::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+  }
+
+  .brand-card.has-bg .card-tag {
+    border-color: rgba(255,255,255,0.3);
+    color: white;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .brand-card.has-bg .card-title {
+    color: white;
+    z-index: 2;
+  }
+
+  .card-tag {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 6px 16px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 0;
+    font-size: 12px;
+    color: #333;
+    z-index: 2;
+  }
+
+  .card-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #111;
+    letter-spacing: -1px;
+    z-index: 2;
+  }
+
+  .card-number {
+    font-size: 56px;
+    font-weight: 300;
+    color: #d4af37;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .brand-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .brand-headline {
+      font-size: 60px;
+      letter-spacing: -2px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .brand-floating-texts {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .brand-floating-texts p {
+      max-width: 100%;
+    }
+  }
+
+  /* CUSTOM SERVICES SECTION */
+  .custom-services-section {
+    background: #f5f5f7;
+    padding: 80px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .services-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .services-headline {
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: #111;
+  }
+
+  .services-right-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .services-paragraph {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+    max-width: 400px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+
+  .services-start-btn {
+    display: inline-flex;
+    align-items: stretch;
+    background: #d4af37;
+    border-radius: 0;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .services-start-btn:hover {
+    transform: translateY(-2px);
+    background: #b5952f;
+  }
+
+  .services-start-btn .btn-text {
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+  }
+
+  .services-start-btn .btn-icon {
+    background: #b5952f;
+    color: white;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .services-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .services-image-col {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .services-images-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .services-drawing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .services-drawing.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .services-list-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-list-item {
+    border-top: 1px solid #e5e5e5;
+    padding: 30px 0;
+  }
+
+  .service-list-item:last-child {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .service-list-meta {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .service-list-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .service-list-title {
+    font-size: 36px;
+    font-weight: 500;
+    color: #111;
+    letter-spacing: -1px;
+  }
+
+  .service-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #d4af37;
+    color: white;
+    border-radius: 0;
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .service-icon-btn:hover {
+    transform: scale(1.05);
+    background: #b5952f;
+  }
+
+  /* CUSTOM PROJECTS SECTION */
+  .custom-projects-section {
+    background: #ffffff;
+    padding: 80px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .projects-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 80px;
+  }
+
+  .btn-pill {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 0;
+    color: #111;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+
+  .btn-pill:hover {
+    background: #d4af37;
+    border-color: #d4af37;
+    color: white;
+  }
+
+  .projects-title-area {
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .projects-headline {
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 16px;
+    text-align: right;
+  }
+
+  .projects-subtitle {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    text-align: right;
+  }
+
+  .projects-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .project-row {
+    display: flex;
+    gap: 40px;
+  }
+
+  .project-category-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .category-name {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #111;
+  }
+
+  .category-nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+    color: #111;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .nav-btn:hover {
+    background: #111;
+    color: white;
+  }
+
+  .project-items {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .project-item {
+    position: relative;
+    border-radius: 0;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    background: #ddd;
+  }
+
+  .project-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .project-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .item-link-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .project-item:hover .item-link-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .item-details {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  .item-title {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .item-meta {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 1024px) {
+    .project-row {
+      flex-direction: column;
+    }
+    .project-category-sidebar {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .category-name br {
+      display: none;
+    }
+    .project-items {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects-top-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .projects-title-area {
+      text-align: left;
+    }
+    .projects-headline {
+      font-size: 32px;
+    }
+    .project-category-sidebar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .project-items {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* CLIENTS SECTION */
+  .clients-section {
+    background: #111;
+    color: white;
+    max-width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    padding-top: 40px;
+    position: relative;
+  }
+
+  .marquee-container::before,
+  .marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, #111 0%, transparent 100%);
+  }
+
+  .marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, #111 0%, transparent 100%);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll-marquee 30s linear infinite;
+  }
+  
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    padding-right: 80px;
+  }
+
+  @keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .client-logo-img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    opacity: 1;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .client-logo-img:hover {
+    transform: scale(1.05);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    position: relative;
+    width: 100%;
+    padding: 120px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f5f5f7;
+  }
+
+  .cta-card {
+    text-align: center;
+    color: #111;
+    max-width: 600px;
+  }
+
+  .cta-title {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+
+  /* FOOTER */
+  .footer-section {
+    background: #111;
+    color: white;
+    padding: 80px 60px 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto 60px;
+  }
+
+  .footer-col h4 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  .footer-col a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 16px;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+
+  .footer-col a:hover {
+    opacity: 1;
+  }
+
+  .footer-desc {
+    margin-top: 20px;
+    opacity: 0.6;
+    max-width: 300px;
+    font-size: 15px;
+  }
+
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .about-section {
+      grid-template-columns: 1fr;
+    }
+    .services-grid, .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .statistics-section {
+      flex-direction: column;
+      gap: 40px;
+    }
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+    .cta-card {
+      padding: 40px;
+      margin: 20px;
+    }
+    .section-title {
+      font-size: 36px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo">PIEACH</div>
+
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+
+    <a href="#" class="nav-cta">Start a Project</a>
+  </div>
+</nav>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<div class="container">
+
+  <!-- HERO CARD -->
+  <div class="glass-card">
+    <div class="hero-tag">PIEACH ARCHITECTURE</div>
+    <h1 class="hero-title">BEYOND<br>ARCHITECTURE</h1>
+    <p class="hero-desc">We design spaces that tell your story, transforming ideas into striking architectural experiences. From concept to landmark, we push boundaries to create spaces that inspire and endure.</p>
+    <a href="#" class="btn">Contact Us</a>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="colosseum-wrapper">
+    <img class="colosseum" src="https://pieach.com/wp-content/uploads/2023/10/PJ17106-2-scaled.jpg" alt="Colosseum"/>
+    <img class="colosseum-reveal" src="back.png" alt="Detail View" />
+  </div>
+
+</div>
+
+<!-- ABOUT BRAND SECTION -->
+<section class="section about-brand-section">
+  <div class="brand-hero-typography gs-reveal">
+    <h2 class="brand-headline">
+      PIEACH Limited is a multidisciplinary studio of visionary architects, 
+      <span class="text-accent">master planners, and interior designers</span>
+    </h2>
+    <!-- <div class="brand-floating-texts">
+      <p class="brand-text-left">Our studio believes in the power of architecture to shape the future. We blend innovative structural engineering with minimalist aesthetics.</p>
+      <p class="brand-text-right">From concept to landmark, we push boundaries to create spaces that are both exceptionally functional and visually inspiring.</p>
+    </div> -->
+  </div>
+
+  <div class="brand-cards-grid">
+    <div class="brand-card">
+      <div>
+        <div class="card-number">100+</div>
+        <h3 class="card-title">Clients</h3>
+      </div>
+      <p class="card-desc">100+ delighted clients and counting, experiencing the fun side of exceptional architectural solutions.</p>
+    </div>
+    <div class="brand-card">
+      <div>
+        <div class="card-number">5</div>
+        <h3 class="card-title">Design Awards</h3>
+      </div>
+      <p class="card-desc">Explore our collection of prestigious design awards that highlight our commitment to innovation and excellence in the architectural world.</p>
+    </div>
+    <div class="brand-card">
+      <div>
+        <div class="card-number">250+</div>
+        <h3 class="card-title">Built Projects</h3>
+      </div>
+      <p class="card-desc">Our journey has seen visions transmute into enchanting realities, ranging from iconic landmarks to inviting interiors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUR SERVICES SECTION -->
+<section class="section custom-services-section">
+  <div class="services-top-row">
+    <div class="services-left-header gs-reveal">
+      <div class="section-tag" style="color: #111; opacity: 1;">Our Services</div>
+      <h2 class="services-headline">Shaping iconic spaces<br>through sustainable<br>design.</h2>
+    </div>
+    <div class="services-right-header gs-reveal">
+      <p class="services-paragraph">We blend creativity and precision to design spaces that inspire and endure.</p>
+      <a href="#" class="services-start-btn">
+        <span class="btn-text">See All Services</span>
+        <span class="btn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M5 12h15"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="services-bottom-row">
+    <div class="services-image-col gs-reveal">
+      <div class="services-images-wrapper">
+        <img src="https://pieach.com/wp-content/uploads/2023/10/PJ13100-4-1024x1024.jpg" alt="Urban Planning" class="services-drawing active">
+        <img src="https://pieach.com/wp-content/uploads/2022/10/DSC00627-1024x683.jpg" alt="Residential" class="services-drawing">
+        <img src="https://pieach.com/wp-content/uploads/2023/10/PJ2121-10.jpg" alt="Commercial" class="services-drawing">
+        <img src="https://pieach.com/wp-content/uploads/2023/10/PJ21101-3-1024x1024.jpg" alt="Landmarks" class="services-drawing">
+      </div>
+    </div>
+    <div class="services-list-col">
+      <div class="service-list-item gs-reveal">
+        <div class="service-list-meta">( Service 01 )</div>
+        <div class="service-list-main">
+          <h3 class="service-list-title">Urban Planning</h3>
+          <a href="#" class="service-icon-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="service-list-item gs-reveal">
+        <div class="service-list-meta">( Service 02 )</div>
+        <div class="service-list-main">
+          <h3 class="service-list-title">Residential</h3>
+          <a href="#" class="service-icon-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="service-list-item gs-reveal">
+        <div class="service-list-meta">( Service 03 )</div>
+        <div class="service-list-main">
+          <h3 class="service-list-title">Commercial</h3>
+          <a href="#" class="service-icon-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="service-list-item gs-reveal">
+        <div class="service-list-meta">( Service 04 )</div>
+        <div class="service-list-main">
+          <h3 class="service-list-title">Landmarks</h3>
+          <a href="#" class="service-icon-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR PROJECTS SECTION -->
+<section class="section custom-projects-section">
+  <div class="projects-top-header gs-reveal">
+    <a href="#" class="btn-pill">See All Projects</a>
+    <div class="projects-title-area">
+      <h2 class="projects-headline"><span style="color: #111;">Recent</span> projects collection</h2>
+      <p class="projects-subtitle">From minimalist residential spaces to iconic commercial landmarks — elevate your space with sustainable design.</p>
+    </div>
+  </div>
+
+  <div class="projects-grid-container">
+    <!-- Row 1: Residential -->
+    <div class="project-row">
+      <div class="project-category-sidebar gs-reveal">
+        <h3 class="category-name">Residential<br>& living</h3>
+        <div class="category-nav">
+          <button class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="project-items">
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2023/11/11100_1-1024x810.jpg" alt="Glass Pavilion">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+          
+        </div>
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2022/10/IMG_3228-scaled.jpg" alt="Skyline Villa">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+          
+        </div>
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2023/10/PJ13109-2-scaled.jpg" alt="Eco House">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Commercial -->
+    <div class="project-row">
+      <div class="project-category-sidebar gs-reveal">
+        <h3 class="category-name">Commercial<br>Buildings</h3>
+        <div class="category-nav">
+          <button class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="project-items">
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2023/10/PJ9114-4-1024x1024.jpg" alt="Oasis HQ">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+          
+        </div>
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2022/10/3d-png-1024x1024.png" alt="Vertex Tower">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+          
+        </div>
+        <div class="project-item gs-reveal">
+          <img src="https://pieach.com/wp-content/uploads/2022/09/IMG_3569-scaled.jpg" alt="Lumen Plaza">
+          <a href="#" class="item-link-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
+          </a>
+         
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- OUR CLIENTS SECTION -->
+<section class="section clients-section">
+  <div class="section-header gs-reveal">
+    <div class="section-tag">OUR CLIENTS</div>
+  </div>
+  <div class="marquee-container gs-reveal">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <img src="client-logos/Cadwelllogo.png" alt="Cadwell" class="client-logo-img">
+        <img src="client-logos/Chrome-logo.png" alt="Chrome" class="client-logo-img">
+        <img src="client-logos/Transcorp-Hotels.png" alt="Transcorp Hotels" class="client-logo-img">
+        <img src="client-logos/airtellogo.png" alt="Airtel" class="client-logo-img">
+        <img src="client-logos/ogun-state.png" alt="Ogun State" class="client-logo-img">
+        <img src="client-logos/ubalogo.png" alt="UBA" class="client-logo-img">
+      </div>
+      <!-- Duplicate for seamless looping -->
+      <div class="marquee-content">
+        <img src="client-logos/Cadwelllogo.png" alt="Cadwell" class="client-logo-img">
+        <img src="client-logos/Chrome-logo.png" alt="Chrome" class="client-logo-img">
+        <img src="client-logos/Transcorp-Hotels.png" alt="Transcorp Hotels" class="client-logo-img">
+        <img src="client-logos/airtellogo.png" alt="Airtel" class="client-logo-img">
+        <img src="client-logos/ogun-state.png" alt="Ogun State" class="client-logo-img">
+        <img src="client-logos/ubalogo.png" alt="UBA" class="client-logo-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<!-- <section class="cta-section gs-reveal">
+  <div class="cta-card">
+    <h2 class="cta-title">Ready to build your vision?</h2>
+    <p class="cta-desc">Let's collaborate to create architecture that makes a statement.</p>
+    <a href="#" class="btn-dark">Book an Appointment</a>
+  </div>
+</section> -->
+
+<!-- FOOTER -->
+<!-- <footer class="footer-section">
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="logo">PIEACH</div>
+      <p class="footer-desc">Redefining architectural boundaries.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 PIEACH Architecture. All rights reserved.</p>
+  </div>
+</footer> -->
+
+<script>
+  const wrapper = document.querySelector('.colosseum-wrapper');
+  const reveal = document.querySelector('.colosseum-reveal');
+  const colosseum = document.querySelector('.colosseum');
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+
+  // Instant dot tracking, smooth ring tracking
+  const dotX = gsap.quickTo(cursorDot, "x", {duration: 0, ease: "none"});
+  const dotY = gsap.quickTo(cursorDot, "y", {duration: 0, ease: "none"});
+  const ringX = gsap.quickTo(cursorRing, "x", {duration: 0.15, ease: "power3"});
+  const ringY = gsap.quickTo(cursorRing, "y", {duration: 0.15, ease: "power3"});
+
+  document.addEventListener('mousemove', (e) => {
+    // Update custom cursors
+    dotX(e.clientX);
+    dotY(e.clientY);
+    ringX(e.clientX);
+    ringY(e.clientY);
+
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Smoothly animate mask variables with GSAP
+    gsap.to(reveal, {
+      "--x": `${x}px`,
+      "--y": `${y}px`,
+      duration: 0.6,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+    
+    reveal.classList.add('visible');
+
+    // Subtle parallax and scale effect based on mouse position
+    const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
+    const yMove = (e.clientY / window.innerHeight - 0.5) * 30;
+    
+    gsap.to([colosseum, reveal], {
+      x: xMove,
+      y: yMove,
+      scale: 1.05,
+      duration: 1.5,
+      ease: "power2.out"
+    });
+  });
+
+  document.addEventListener('mouseleave', () => {
+    reveal.classList.remove('visible');
+    
+    gsap.to([colosseum, reveal], {
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: 1.5,
+      ease: "power2.out"
+    });
+  });
+
+  // Cursor hover effect on interactable elements
+  const interactables = document.querySelectorAll('a, .btn, .btn-dark, .project-card, .service-card');
+  interactables.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorDot.classList.add('hovering');
+      cursorRing.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorDot.classList.remove('hovering');
+      cursorRing.classList.remove('hovering');
+    });
+  });
+
+  // GSAP ScrollTrigger and Lenis Setup
+  gsap.registerPlugin(ScrollTrigger);
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  // Scroll animations
+  const revealElements = document.querySelectorAll(".gs-reveal");
+  revealElements.forEach((el) => {
+    gsap.fromTo(el, 
+      { autoAlpha: 0, y: 50 }, 
+      { 
+        duration: 1, 
+        autoAlpha: 1, 
+        y: 0, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Highlight Cards Stagger Animation
+  const brandCards = document.querySelectorAll('.brand-card');
+  if (brandCards.length > 0) {
+    gsap.fromTo(brandCards,
+      { autoAlpha: 0, y: 50 },
+      {
+        duration: 1,
+        autoAlpha: 1,
+        y: 0,
+        ease: "power3.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: '.brand-cards-grid',
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }
+
+  // Services Hover Interaction
+  const serviceItems = document.querySelectorAll('.service-list-item');
+  const serviceImages = document.querySelectorAll('.services-drawing');
+  
+  serviceItems.forEach((item, index) => {
+    item.addEventListener('mouseenter', () => {
+      serviceImages.forEach(img => img.classList.remove('active'));
+      if (serviceImages[index]) {
+        serviceImages[index].classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
