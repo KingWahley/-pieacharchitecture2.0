@@ -1,148 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Modern Admin Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  body {
+    background: radial-gradient(circle at top, #0a0a0a, #000000);
+  }
+</style>
 </head>
 
-<body class="bg-black text-white font-sans">
+<body class="text-white font-sans overflow-x-hidden">
 
-  <!-- Header -->
-  <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
-    <h1 class="text-2xl tracking-wide">Wireframe · Admin Dashboard</h1>
-    <div class="flex items-center gap-6 text-sm text-gray-300">
-      <span>👤 Admin</span>
-      <span>⚙️</span>
-      <span class="cursor-pointer hover:text-white">Logout</span>
+<!-- MOBILE HEADER -->
+<header class="lg:hidden flex items-center justify-between p-4 border-b border-white/10 backdrop-blur-xl">
+  <button onclick="toggleSidebar()" class="text-white">
+    ☰
+  </button>
+  <h1 class="font-semibold">Dashboard</h1>
+  <div></div>
+</header>
+
+<div class="flex">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar"
+    class="fixed lg:static z-50 top-0 left-0 h-full w-64 bg-black/80 backdrop-blur-xl border-r border-white/10 transform -translate-x-full lg:translate-x-0 transition duration-300">
+
+    <!-- Sidebar Header -->
+    <div class="flex items-center justify-between p-5 border-b border-white/10">
+      <div>
+        <p class="text-sm text-white/70">Admin Panel</p>
+        <p class="text-xs text-white/40">Pieach CMS</p>
+      </div>
+
+      <!-- Close button (mobile) -->
+      <button onclick="toggleSidebar()" class="lg:hidden text-white/60">✕</button>
     </div>
-  </div>
 
-  <div class="flex">
+    <!-- Nav -->
+    <nav class="mt-4 space-y-1 text-sm">
 
-    <!-- Sidebar -->
-    <aside class="w-64 border-r border-gray-800 min-h-screen">
-      <div class="p-4 border-b border-gray-800 text-gray-300">
-        Admin Panel · Pieach CMS
+      <a class="flex items-center gap-3 px-6 py-3 bg-teal-500/20 border-l-4 border-teal-400">
+        Dashboard
+      </a>
+
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Projects</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Team</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Careers</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Appointments</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Blog</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Contact</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Media</a>
+      <a class="flex items-center gap-3 px-6 py-3 hover:bg-white/10 transition">Settings</a>
+
+    </nav>
+  </aside>
+
+  <!-- OVERLAY (mobile) -->
+  <div id="overlay"
+    onclick="toggleSidebar()"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-40 lg:hidden"></div>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-4 lg:p-8 space-y-6 w-full">
+
+    <!-- DESKTOP HEADER -->
+    <div class="hidden lg:flex justify-between items-center">
+      <h1 class="text-2xl font-semibold">Dashboard Overview</h1>
+
+      <div class="flex items-center gap-4 text-sm text-white/70">
+        <span>Admin</span>
+        <button class="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition">Logout</button>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:scale-[1.03] transition">
+        <p class="text-xs text-white/50">Total Projects</p>
+        <h2 class="text-2xl font-bold mt-2">128</h2>
       </div>
 
-      <nav class="flex flex-col text-gray-400 text-sm">
-        <a class="px-6 py-3 bg-teal-900/40 border-l-4 border-teal-400 text-white">Dashboard</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Projects</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Team</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Careers</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Appointments</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Blog</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Contact</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Media</a>
-        <a class="px-6 py-3 hover:bg-gray-900">Settings</a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-
-      <!-- Top Cards -->
-      <div class="grid grid-cols-4 gap-6 mb-8">
-        
-        <div class="border border-gray-800 p-6 relative">
-          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
-          <div class="text-center text-3xl font-semibold mb-2">128</div>
-          <p class="text-center text-gray-400 text-sm">Total Projects</p>
-        </div>
-
-        <div class="border border-gray-800 p-6 relative">
-          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
-          <div class="text-center text-3xl font-semibold mb-2">42</div>
-          <p class="text-center text-gray-400 text-sm">Appointments</p>
-        </div>
-
-        <div class="border border-gray-800 p-6 relative">
-          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
-          <div class="text-center text-3xl font-semibold mb-2">17</div>
-          <p class="text-center text-gray-400 text-sm">Messages</p>
-        </div>
-
-        <div class="border border-gray-800 p-6 relative">
-          <div class="absolute top-0 left-0 w-full h-1 bg-teal-400"></div>
-          <div class="text-center text-3xl font-semibold mb-2">9</div>
-          <p class="text-center text-gray-400 text-sm">Blog Posts</p>
-        </div>
-
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:scale-[1.03] transition">
+        <p class="text-xs text-white/50">Appointments</p>
+        <h2 class="text-2xl font-bold mt-2">42</h2>
       </div>
 
-      <!-- Bottom Sections -->
-      <div class="grid grid-cols-2 gap-6">
-
-        <!-- Upcoming Appointments -->
-        <div class="border border-gray-800">
-          <div class="p-4 border-b border-gray-800 flex items-center">
-            <div class="w-1 h-6 bg-teal-400 mr-3"></div>
-            <h2 class="text-lg">Upcoming Appointments</h2>
-          </div>
-
-          <div class="p-4 space-y-4 text-sm text-gray-400">
-            <div class="flex justify-between">
-              <span>John Doe</span>
-              <span>May 3, 2026</span>
-              <span class="text-yellow-400">Pending</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Sarah Williams</span>
-              <span>May 5, 2026</span>
-              <span class="text-green-400">Confirmed</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Michael Brown</span>
-              <span>May 6, 2026</span>
-              <span class="text-red-400">Cancelled</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Emma Johnson</span>
-              <span>May 8, 2026</span>
-              <span class="text-green-400">Confirmed</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Messages -->
-        <div class="border border-gray-800">
-          <div class="p-4 border-b border-gray-800 flex items-center">
-            <div class="w-1 h-6 bg-teal-400 mr-3"></div>
-            <h2 class="text-lg">Recent Messages</h2>
-          </div>
-
-          <div class="p-4 space-y-4 text-sm text-gray-400">
-            <div class="flex justify-between">
-              <span>Alice Smith</span>
-              <span>Project Inquiry</span>
-              <span>May 1</span>
-            </div>
-            <div class="flex justify-between">
-              <span>David Lee</span>
-              <span>Meeting Follow-up</span>
-              <span>May 2</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Chris Evans</span>
-              <span>Quote Request</span>
-              <span>May 2</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Olivia Brown</span>
-              <span>New Collaboration</span>
-              <span>May 3</span>
-            </div>
-          </div>
-
-        </div>
-
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:scale-[1.03] transition">
+        <p class="text-xs text-white/50">Messages</p>
+        <h2 class="text-2xl font-bold mt-2">17</h2>
       </div>
 
-    </main>
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:scale-[1.03] transition">
+        <p class="text-xs text-white/50">Blog Posts</p>
+        <h2 class="text-2xl font-bold mt-2">9</h2>
+      </div>
 
-  </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- APPOINTMENTS -->
+      <div class="rounded-2xl bg-white/5 border border-white/10">
+
+        <div class="p-5 border-b border-white/10 flex justify-between">
+          <h3 class="font-semibold">Appointments</h3>
+          <span class="text-xs text-white/40">Upcoming</span>
+        </div>
+
+        <div class="p-5 space-y-4 text-sm">
+
+          <div class="flex justify-between items-center p-3 hover:bg-white/5 rounded-lg">
+            <div>
+              <p>John Doe</p>
+              <p class="text-xs text-white/40">May 3</p>
+            </div>
+            <span class="text-yellow-400 text-xs">Pending</span>
+          </div>
+
+          <div class="flex justify-between items-center p-3 hover:bg-white/5 rounded-lg">
+            <div>
+              <p>Sarah Williams</p>
+              <p class="text-xs text-white/40">May 5</p>
+            </div>
+            <span class="text-green-400 text-xs">Confirmed</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="rounded-2xl bg-white/5 border border-white/10">
+
+        <div class="p-5 border-b border-white/10 flex justify-between">
+          <h3 class="font-semibold">Messages</h3>
+          <span class="text-xs text-white/40">Recent</span>
+        </div>
+
+        <div class="p-5 space-y-4 text-sm">
+
+          <div class="p-3 hover:bg-white/5 rounded-lg">
+            <p>Alice Smith</p>
+            <p class="text-xs text-white/40">Project Inquiry</p>
+          </div>
+
+          <div class="p-3 hover:bg-white/5 rounded-lg">
+            <p>David Lee</p>
+            <p class="text-xs text-white/40">Follow-up</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- JS -->
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+  }
+</script>
 
 </body>
 </html>
