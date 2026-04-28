@@ -1307,21 +1307,28 @@
     background: var(--bg);
     color: var(--text);
     border-top: 1px solid var(--border);
-    padding: 100px 60px 40px;
+    padding: 120px 60px 60px;
     transition: background 0.3s ease, color 0.3s ease;
   }
 
   .footer-top {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
     max-width: 1400px;
     margin: 0 auto 100px;
   }
 
+  .footer-logo {
+    height: 64px;
+    width: auto;
+    margin-bottom: 24px;
+    display: block;
+  }
+
   .footer-col h4 {
     font-family: "Outfit", sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 32px;
@@ -1329,35 +1336,79 @@
     font-weight: 700;
   }
 
-  .footer-col a {
+  .footer-col a, .footer-contact-item {
     display: block;
     color: var(--text);
     text-decoration: none;
     margin-bottom: 16px;
     font-size: 15px;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .footer-col a:hover {
     color: var(--accent);
+    transform: translateX(5px);
   }
 
   .footer-desc {
-    margin-top: 20px;
-    opacity: 0.6;
-    max-width: 300px;
-    font-size: 15px;
+    margin-top: 24px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 320px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .footer-contact-item {
+    color: var(--text);
+    opacity: 0.8;
   }
 
   .footer-bottom {
     max-width: 1400px;
     margin: 0 auto;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid var(--border);
     padding-top: 40px;
-    text-align: center;
-    font-size: 14px;
-    opacity: 0.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-legal a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-legal a:hover {
+    color: var(--text);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* RESPONSIVE */
@@ -1744,24 +1795,36 @@
 <footer class="footer-section">
   <div class="footer-top">
     <div class="footer-col">
-      <div class="logo">PIEACH</div>
-      <p class="footer-desc">Redefining architectural boundaries through visionary design and sustainable excellence.</p>
+      <img src="mainlogo2.png" alt="PIEACH Logo" class="footer-logo">
+      <p class="footer-desc">Architecture for the human condition — crafted with precision, guided by vision.</p>
     </div>
     <div class="footer-col">
-      <h4>Studio</h4>
-      <a href="#">About Us</a>
-      <a href="#">Careers</a>
-      <a href="#">Contact</a>
+      <h4>Navigate</h4>
+      <a href="#">Studio</a>
+      <a href="#">Services</a>
+      <a href="#">Projects</a>
+      <a href="#">Journal</a>
     </div>
     <div class="footer-col">
-      <h4>Social</h4>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Twitter</a>
+      <h4>Services</h4>
+      <a href="#">Architectural Design</a>
+      <a href="#">Interior Design</a>
+      <a href="#">Urban Planning</a>
+      <a href="#">Project Management</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">+234 (0) 816 453 6434</div>
+      <div class="footer-contact-item">1st Floor, 274A Kofo Abayomi Street,
+Victoria Island, Lagos, Nigeria.</div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 PIEACH Architecture. All rights reserved.</p>
+    <p>&copy; 2026 PIEACH LIMITED. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
   </div>
 </footer>
 
