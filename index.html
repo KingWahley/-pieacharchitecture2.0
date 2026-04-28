@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PIEACH ARCHITECTURE</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <link rel="icon" type="image/png" href="">
 <style>
@@ -32,7 +34,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Plus Jakarta Sans", sans-serif;
-    cursor: none;
+  }
+
+  a, button, .btn, .nav-link, .sub-link, .service-list-item {
+    cursor: pointer !important;
   }
 
   body {
@@ -44,193 +49,302 @@
 
 
   /* NAVBAR */
-.navbar {
+/* STERLING GATE KINETIC NAV */
+.site-header-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 30px 60px;
   z-index: 1000;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  justify-content: center;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+  padding: 20px 60px;
+  pointer-events: none;
 }
 
-.nav-inner {
+.header {
+  width: 100%;
+  pointer-events: none;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.nav-row__right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1400px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 30px;
+  pointer-events: auto;
 }
 
-.navbar.scrolled {
-  top: 20px;
-  width: fit-content;
-  padding: 10px 20px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.navbar.scrolled .nav-inner {
-  gap: 25px;
-}
-
-.navbar.scrolled .nav-cta {
-  background: #d4af37;
-  border-color: #d4af37;
-  padding: 8px 18px;
-  border-radius: 100px;
-}
-
-.logo {
-  font-family: "Outfit", sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  color: white;
-}
-
-.nav-links {
-  display: flex;
-  gap: 40px;
-  list-style: none;
-}
-
-.nav-links a {
-  text-decoration: none;
+.nav-toggle-label {
   font-size: 14px;
-  color: rgba(255,255,255,0.8);
-  transition: color 0.3s;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
 
-.nav-links a:hover {
-  color: #d4af37;
+.nav-toggle-label:hover {
+  opacity: 1;
 }
 
-/* DROPDOWN */
-.has-dropdown {
+.nav-close-btn {
+  background: rgba(212, 175, 55, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  padding: 6px 6px 6px 20px;
+  border-radius: 100px;
+  color: white;
+  cursor: pointer !important;
+  z-index: 1001;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-close-btn:hover {
+  background: rgba(212, 175, 55, 1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.menu-button-text {
+  position: relative;
+  height: 20px;
+  overflow: hidden;
+  text-align: right;
+}
+
+.menu-button-text p {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 20px;
+  margin: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon-wrap {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.menu-button-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* OVERLAY MENU */
+.nav-overlay-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+}
+
+.menu-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  transform: translateX(100%);
+}
+
+.menu-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.backdrop-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: translateX(101%);
+}
+
+.backdrop-layer.first { background: #111; }
+.backdrop-layer.second { background: #1a1a1a; }
+
+.menu-content-wrapper {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-list-item {
+  margin-bottom: 15px;
+}
+
+.nav-link {
+  display: inline-block;
+  text-decoration: none;
   position: relative;
 }
 
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 0;
-  min-width: 160px;
-  list-style: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 12px;
-  margin-top: 15px;
-}
-
-.dropdown::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 0;
-  width: 100%;
-  height: 10px;
-}
-
-.has-dropdown:hover .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.navbar.scrolled .dropdown {
-  margin-top: 5px;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-}
-
-.dropdown li a {
-  padding: 10px 20px;
-  display: block;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-  white-space: nowrap;
-}
-
-.dropdown li a:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #d4af37;
-}
-
-.nav-cta {
-  padding: 12px 28px;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+.nav-link-text {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
   color: white;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  text-transform: uppercase;
+  margin: 0;
+  transform: translateY(140%) rotate(10deg);
+  transition: color 0.4s ease;
 }
 
-.nav-cta:hover {
+.nav-link:hover .nav-link-text {
+  color: #8B4513; /* Rich Architectural Brown */
+}
+
+.sub-menu {
+  list-style: none;
+  padding-left: 30px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 0;
+}
+
+.menu-list-item:hover .sub-menu {
+  max-height: 150px;
+  opacity: 1;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.sub-link {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: block;
+  padding: 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sub-link:hover {
+  color: #8B4513;
+  transform: translateX(10px);
+}
+
+.menu-cta-wrapper {
+  margin-top: 40px;
+  padding-left: 0;
+}
+
+.menu-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 18px 40px;
   background: white;
   color: black;
-  border-color: white;
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  transition: all 0.4s ease;
 }
 
-.theme-btn {
-  background: none;
-  border: none;
+.menu-cta-btn:hover {
+  background: #8B4513;
   color: white;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
+  transform: translateY(-5px);
 }
 
-.theme-btn:hover {
-  transform: scale(1.1);
+/* AMBIENT SHAPES */
+.ambient-background-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.dark-mode .sun-icon { display: none !important; }
-.dark-mode .moon-icon { display: block !important; }
+.bg-shape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .navbar {
+.bg-shape.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.shape-element {
+  opacity: 0;
+  transform-origin: center;
+}
+
+@media (max-width: 1024px) {
+  .menu-content {
+    width: 100%;
+  }
+  .site-header-wrapper {
     padding: 20px;
-  }
-  
-  .navbar.scrolled {
-    width: 90%;
-    padding: 10px 20px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .nav-cta {
-    display: none;
   }
 }
   .container {
@@ -239,6 +353,7 @@
     position: relative;
     padding: 40px 60px;
     overflow: hidden;
+    cursor: none; /* Hide default cursor in hero */
   }
 
   /* HERO CARD */
@@ -366,6 +481,7 @@
     height: 6px;
     background: white;
     mix-blend-mode: difference;
+    opacity: 0;
     transition: opacity 0.3s;
   }
 
@@ -373,7 +489,8 @@
     width: 32px;
     height: 32px;
     border: 2px solid #d4af37;
-    transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
+    opacity: 0;
+    transition: opacity 0.3s, width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
   }
 
   .cursor-ring.hovering {
@@ -705,6 +822,39 @@
     color: var(--text);
   }
 
+  /* BRAND SPECIFIC BUTTON */
+  .btn-brand {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 32px;
+    background: #ffffff;
+    color: #000000;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid #ffffff;
+    text-decoration: none;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  .btn-brand:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+
+  .btn-brand .btn-icon {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-brand:hover .btn-icon {
+    transform: translateX(5px);
+  }
+
   .services-start-btn .btn-icon {
     margin-left: 15px;
     display: flex;
@@ -909,40 +1059,85 @@
     position: relative;
     border-radius: 0;
     overflow: hidden;
+    background: var(--card-bg);
     aspect-ratio: 1/1;
-    background: #ddd;
   }
 
   .project-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .project-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.1);
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+  }
+
+  .project-item:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .project-info {
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-item:hover .project-info {
+    transform: translateY(0);
+  }
+
+  .project-name {
+    font-family: "Outfit", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .project-location {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
   }
 
   .item-link-btn {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     background: white;
-    border-radius: 0;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 3;
     opacity: 0;
-    transform: translateY(-10px);
-    transition: background 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+    transform: translate(10px, -10px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .project-item:hover .item-link-btn {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(0, 0);
   }
 
   .item-details {
@@ -1438,32 +1633,121 @@
 </head>
 
 <body>
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-inner">
-    <div class="logo">PIEACH</div>
-
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li class="has-dropdown">
-        <a href="#">About</a>
-        <ul class="dropdown">
-          <li><a href="#">The Team</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-
-    <div class="nav-actions" style="display: flex; align-items: center; gap: 20px;">
-      
-      <a href="#" class="nav-cta">Book Appointment</a>
+<div class="site-header-wrapper">
+  <nav class="nav-row">
+    <a href="#" aria-label="home" class="nav-logo-row w-inline-block" style="text-decoration: none;">
+      <span class="logo-text" style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 3px; color: white; text-transform: uppercase; pointer-events: auto;">PIEACH LIMITED</span>
+    </a>
+    <div class="nav-row__right">
+      <button role="button" class="nav-close-btn" style="pointer-events: auto;">
+        <div class="menu-button-text">
+          <p class="p-large">Menu</p>
+          <p class="p-large">Close</p>
+        </div>
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none" class="menu-button-icon">
+            <path d="M7.33333 16L7.33333 -3.2055e-07L8.66667 -3.78832e-07L8.66667 16L7.33333 16Z" fill="currentColor"></path>
+            <path d="M16 8.66667L-2.62269e-07 8.66667L-3.78832e-07 7.33333L16 7.33333L16 8.66667Z" fill="currentColor"></path>
+            <path d="M6 7.33333L7.33333 7.33333L7.33333 6C7.33333 6.73637 6.73638 7.33333 6 7.33333Z" fill="currentColor"></path>
+            <path d="M10 7.33333L8.66667 7.33333L8.66667 6C8.66667 6.73638 9.26362 7.33333 10 7.33333Z" fill="currentColor"></path>
+            <path d="M6 8.66667L7.33333 8.66667L7.33333 10C7.33333 9.26362 6.73638 8.66667 6 8.66667Z" fill="currentColor"></path>
+            <path d="M10 8.66667L8.66667 8.66667L8.66667 10C8.66667 9.26362 9.26362 8.66667 10 8.66667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+      </button>
     </div>
+  </nav>
+</div>
+
+<section class="fullscreen-menu-container">
+  <div data-nav="closed" class="nav-overlay-wrapper">
+    <div class="overlay"></div>
+    <nav class="menu-content">
+      <div class="menu-bg">
+        <div class="backdrop-layer first"></div>
+        <div class="backdrop-layer second"></div>
+        <div class="backdrop-layer"></div>
+
+        <div class="ambient-background-shapes">
+          <svg class="bg-shape bg-shape-1" viewBox="0 0 400 400" fill="none">
+            <circle class="shape-element" cx="80" cy="120" r="40" fill="rgba(212,175,55,0.15)" />
+            <circle class="shape-element" cx="300" cy="80" r="60" fill="rgba(212,175,55,0.12)" />
+            <circle class="shape-element" cx="200" cy="300" r="80" fill="rgba(212,175,55,0.1)" />
+            <circle class="shape-element" cx="350" cy="280" r="30" fill="rgba(212,175,55,0.15)" />
+          </svg>
+          <svg class="bg-shape bg-shape-2" viewBox="0 0 400 400" fill="none">
+            <path class="shape-element" d="M0 200 Q100 100, 200 200 T 400 200" stroke="rgba(212,175,55,0.2)" stroke-width="60" fill="none" />
+            <path class="shape-element" d="M0 280 Q100 180, 200 280 T 400 280" stroke="rgba(212,175,55,0.15)" stroke-width="40" fill="none" />
+          </svg>
+          <svg class="bg-shape bg-shape-3" viewBox="0 0 400 400" fill="none">
+            <circle class="shape-element" cx="50" cy="50" r="8" fill="rgba(212,175,55,0.3)" />
+            <circle class="shape-element" cx="150" cy="50" r="8" fill="rgba(212,175,55,0.3)" />
+            <circle class="shape-element" cx="250" cy="50" r="8" fill="rgba(212,175,55,0.3)" />
+            <circle class="shape-element" cx="350" cy="50" r="8" fill="rgba(212,175,55,0.3)" />
+            <circle class="shape-element" cx="100" cy="150" r="12" fill="rgba(212,175,55,0.25)" />
+            <circle class="shape-element" cx="200" cy="150" r="12" fill="rgba(212,175,55,0.25)" />
+            <circle class="shape-element" cx="300" cy="150" r="12" fill="rgba(212,175,55,0.25)" />
+          </svg>
+          <svg class="bg-shape bg-shape-4" viewBox="0 0 400 400" fill="none">
+            <path class="shape-element" d="M100 100 Q150 50, 200 100 Q250 150, 200 200 Q150 250, 100 200 Q50 150, 100 100" fill="rgba(212,175,55,0.12)" />
+          </svg>
+          <svg class="bg-shape bg-shape-5" viewBox="0 0 400 400" fill="none">
+            <line class="shape-element" x1="0" y1="100" x2="300" y2="400" stroke="rgba(212,175,55,0.15)" stroke-width="30" />
+            <line class="shape-element" x1="100" y1="0" x2="400" y2="300" stroke="rgba(212,175,55,0.12)" stroke-width="25" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="menu-content-wrapper">
+        <ul class="menu-list">
+          <li class="menu-list-item" data-shape="1">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Home</p>
+            </a>
+          </li>
+          <li class="menu-list-item" data-shape="2">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">About</p>
+            </a>
+            <ul class="sub-menu">
+              <li><a href="#" class="sub-link nav-link-text">About Us</a></li>
+              <li><a href="#" class="sub-link nav-link-text">Our Team</a></li>
+            </ul>
+          </li>
+          <li class="menu-list-item" data-shape="3">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Services</p>
+            </a>
+          </li>
+          <li class="menu-list-item" data-shape="4">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Projects</p>
+            </a>
+          </li>
+          <li class="menu-list-item" data-shape="5">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Careers</p>
+            </a>
+          </li>
+          <li class="menu-list-item" data-shape="1">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Blog</p>
+            </a>
+          </li>
+          <li class="menu-list-item" data-shape="2">
+            <a href="#" class="nav-link w-inline-block">
+              <p class="nav-link-text">Contact</p>
+            </a>
+          </li>
+        </ul>
+        
+        <div class="menu-cta-wrapper gs-reveal">
+          <a href="#" class="menu-cta-btn">Book Appointment</a>
+        </div>
+      </div>
+    </nav>
   </div>
-</nav>
+</section>
 <div class="cursor-dot"></div>
 <div class="cursor-ring"></div>
 
@@ -1503,25 +1787,34 @@
   <div class="brand-cards-grid">
     <div class="brand-card">
       <div>
-        <div class="card-number">100+</div>
+        <div class="card-number"><span class="count-up" data-target="100">0</span>+</div>
         <h3 class="card-title">Clients</h3>
       </div>
       <p class="card-desc">100+ delighted clients and counting, experiencing the fun side of exceptional architectural solutions.</p>
     </div>
     <div class="brand-card">
       <div>
-        <div class="card-number">5</div>
+        <div class="card-number"><span class="count-up" data-target="5">0</span></div>
         <h3 class="card-title">Design Awards</h3>
       </div>
       <p class="card-desc">Explore our collection of prestigious design awards that highlight our commitment to innovation and excellence in the architectural world.</p>
     </div>
     <div class="brand-card">
       <div>
-        <div class="card-number">250+</div>
+        <div class="card-number"><span class="count-up" data-target="250">0</span>+</div>
         <h3 class="card-title">Built Projects</h3>
       </div>
       <p class="card-desc">Our journey has seen visions transmute into enchanting realities, ranging from iconic landmarks to inviting interiors.</p>
     </div>
+  </div>
+
+  <div class="brand-btn-wrapper gs-reveal" style="margin-top: 60px; text-align: center;">
+    <a href="#" class="btn-brand">
+      Discover Our Story
+      <span class="btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l7 7-7 7M5 12h15"/></svg>
+      </span>
+    </a>
   </div>
 </section>
 
@@ -1623,28 +1916,42 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
         </div>
-      </div>
-      <div class="project-items">
+      </div>      <div class="project-items">
         <div class="project-item gs-reveal">
           <img src="https://pieach.com/wp-content/uploads/2023/11/11100_1-1024x810.jpg" alt="Glass Pavilion">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">5-Bedroom Terrace</h4>
+              <p class="project-location">Banana Island, Lagos</p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-          
         </div>
         <div class="project-item gs-reveal">
           <img src="https://pieach.com/wp-content/uploads/2022/10/IMG_3228-scaled.jpg" alt="Skyline Villa">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">Private Residence, Ikoyi</h4>
+              <p class="project-location">Ikoyi, Lagos</p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-          
         </div>
         <div class="project-item gs-reveal">
-          <img src="https://pieach.com/wp-content/uploads/2023/10/PJ13109-2-scaled.jpg" alt="Eco House">
+          <img src="https://pieach.com/wp-content/uploads/2022/10/DJI_0582.jpg" alt="Cuddle Bourdillion">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">Cuddle Bourdillion</h4>
+              <p class="project-location">Ikoyi, Lagos</p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-          
         </div>
       </div>
     </div>
@@ -1652,7 +1959,7 @@
     <!-- Row 2: Commercial -->
     <div class="project-row">
       <div class="project-category-sidebar gs-reveal">
-        <h3 class="category-name">Commercial<br>Buildings</h3>
+        <h3 class="category-name">Commercial<br>/Multiplexes</h3>
         <div class="category-nav">
           <button class="nav-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -1664,25 +1971,40 @@
       </div>
       <div class="project-items">
         <div class="project-item gs-reveal">
-          <img src="https://pieach.com/wp-content/uploads/2023/10/PJ9114-4-1024x1024.jpg" alt="Oasis HQ">
+          <img src="https://pieach.com/wp-content/uploads/2023/12/13102-c3-scaled.jpg" alt="Oasis HQ">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">Chrome Tower</h4>
+              <p class="project-location">Port Harcourt, Rivers State</p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-          
         </div>
         <div class="project-item gs-reveal">
-          <img src="https://pieach.com/wp-content/uploads/2022/10/3d-png-1024x1024.png" alt="Vertex Tower">
+          <img src="https://pieach.com/wp-content/uploads/2023/10/PJ15104B-3.jpg" alt="Vertex Tower">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">Twin Towers</h4>
+              <p class="project-location">Victoria Island, Lagos </p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-          
         </div>
         <div class="project-item gs-reveal">
-          <img src="https://pieach.com/wp-content/uploads/2022/09/IMG_3569-scaled.jpg" alt="Lumen Plaza">
+          <img src="https://pieach.com/wp-content/uploads/2023/12/15104-6.jpg" alt="Lumen Plaza">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h4 class="project-name">Beacon of Luxury </h4>
+              <p class="project-location">Victoria Island, Lagos</p>
+            </div>
+          </div>
           <a href="#" class="item-link-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 16.8V7H7.2"/></svg>
           </a>
-         
         </div>
       </div>
     </div>
@@ -1800,10 +2122,13 @@
     </div>
     <div class="footer-col">
       <h4>Navigate</h4>
-      <a href="#">Studio</a>
+      <a href="#">Home</a>
+      <a href="#">About</a>
       <a href="#">Services</a>
       <a href="#">Projects</a>
-      <a href="#">Journal</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -1832,65 +2157,161 @@ Victoria Island, Lagos, Nigeria.</div>
   const wrapper = document.querySelector('.container');
   const reveal = document.querySelector('.colosseum-reveal');
   const colosseum = document.querySelector('.colosseum');
-  const navbar = document.querySelector('.navbar');
   const cursorDot = document.querySelector('.cursor-dot');
   const cursorRing = document.querySelector('.cursor-ring');
 
-  // Instant dot tracking, smooth ring tracking
+  // Center cursors
+  gsap.set([cursorDot, cursorRing], { xPercent: -50, yPercent: -50 });
+
+  // Register GSAP Plugins
+  gsap.registerPlugin(ScrollTrigger, CustomEase);
+  
+  // Create custom easing
+  CustomEase.create("main", "0.65, 0.01, 0.05, 0.99");
+  gsap.defaults({ ease: "main", duration: 0.7 });
+
+  // NAVIGATION LOGIC
+  const navToggle = document.querySelector('.nav-close-btn');
+  const navOverlayWrap = document.querySelector('.nav-overlay-wrapper');
+  const menuContent = document.querySelector('.menu-content');
+  const overlay = document.querySelector('.overlay');
+  const bgPanels = document.querySelectorAll('.backdrop-layer');
+  const menuLinks = document.querySelectorAll('.nav-link-text');
+  const menuButtonTexts = document.querySelectorAll('.menu-button-text p');
+  const menuButtonIcon = document.querySelector('.menu-button-icon');
+  
+  let isMenuOpen = false;
+
+  const toggleMenu = () => {
+    isMenuOpen = !isMenuOpen;
+    const tl = gsap.timeline();
+
+    if (isMenuOpen) {
+      navOverlayWrap.style.display = 'block';
+      navOverlayWrap.setAttribute('data-nav', 'open');
+      
+      tl.to(overlay, { autoAlpha: 1, duration: 0.4 }, 0)
+        .to(menuContent, { x: "0%", duration: 0.6, ease: "main" }, 0)
+        .fromTo(menuButtonTexts, { y: "0%" }, { y: "-100%", stagger: 0.1, duration: 0.4 }, 0)
+        .to(menuButtonIcon, { rotate: 315, duration: 0.4 }, 0)
+        .fromTo(bgPanels, { x: "101%" }, { x: "0%", stagger: 0.1, duration: 0.6, ease: "main" }, 0)
+        .fromTo(menuLinks, 
+          { y: "140%", rotate: 10, opacity: 0 }, 
+          { y: "0%", rotate: 0, opacity: 1, stagger: 0.08, duration: 0.8, ease: "main" }, 
+          0.3
+        );
+    } else {
+      navOverlayWrap.setAttribute('data-nav', 'closed');
+      tl.to(overlay, { autoAlpha: 0, duration: 0.4 })
+        .to(menuContent, { x: "100%", duration: 0.6, ease: "main" }, 0)
+        .to(menuButtonTexts, { y: "0%", duration: 0.4 }, 0)
+        .to(menuButtonIcon, { rotate: 0, duration: 0.4 }, 0)
+        .to(menuLinks, { y: "140%", rotate: 10, opacity: 0, duration: 0.4 }, 0)
+        .set(navOverlayWrap, { display: 'none' });
+    }
+  };
+
+  navToggle.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // Shape Hover Logic
+  const menuItems = document.querySelectorAll('.menu-list-item');
+  const shapesContainer = document.querySelector('.ambient-background-shapes');
+
+  menuItems.forEach((item) => {
+    const shapeIndex = item.getAttribute('data-shape');
+    const shape = shapesContainer.querySelector(`.bg-shape-${shapeIndex}`);
+    if (!shape) return;
+    const shapeEls = shape.querySelectorAll('.shape-element');
+
+    item.addEventListener('mouseenter', () => {
+      shapesContainer.querySelectorAll('.bg-shape').forEach(s => s.classList.remove('active'));
+      shape.classList.add('active');
+      gsap.fromTo(shapeEls, 
+        { scale: 0.5, opacity: 0, rotation: -10 },
+        { scale: 1, opacity: 1, rotation: 0, duration: 0.6, stagger: 0.08, ease: "back.out(1.7)", overwrite: "auto" }
+      );
+    });
+
+    item.addEventListener('mouseleave', () => {
+      gsap.to(shapeEls, {
+        scale: 0.8, opacity: 0, duration: 0.3, ease: "power2.in",
+        onComplete: () => shape.classList.remove('active'),
+        overwrite: "auto"
+      });
+    });
+  });
+
+  // CURSOR LOGIC
   const dotX = gsap.quickTo(cursorDot, "x", {duration: 0, ease: "none"});
   const dotY = gsap.quickTo(cursorDot, "y", {duration: 0, ease: "none"});
   const ringX = gsap.quickTo(cursorRing, "x", {duration: 0.15, ease: "power3"});
   const ringY = gsap.quickTo(cursorRing, "y", {duration: 0.15, ease: "power3"});
 
   document.addEventListener('mousemove', (e) => {
-    // Update custom cursors
     dotX(e.clientX);
     dotY(e.clientY);
     ringX(e.clientX);
     ringY(e.clientY);
 
-    const rect = wrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Smoothly animate mask variables with GSAP
-    gsap.to(reveal, {
-      "--x": `${x}px`,
-      "--y": `${y}px`,
-      duration: 0.6,
-      ease: "power3.out",
-      overwrite: "auto"
-    });
-    
-    reveal.classList.add('visible');
+    if (wrapper && reveal) {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      gsap.to(reveal, {
+        "--x": `${x}px`,
+        "--y": `${y}px`,
+        duration: 0.6,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+      
+      reveal.classList.add('visible');
+    }
 
-    // Subtle parallax and scale effect based on mouse position
-    const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
-    const yMove = (e.clientY / window.innerHeight - 0.5) * 30;
-    
-    gsap.to([colosseum, reveal], {
-      x: xMove,
-      y: yMove,
-      scale: 1.05,
-      duration: 1.5,
-      ease: "power2.out"
-    });
+    if (colosseum) {
+      const xMove = (e.clientX / window.innerWidth - 0.5) * 30;
+      const yMove = (e.clientY / window.innerHeight - 0.5) * 30;
+      
+      gsap.to([colosseum, reveal].filter(Boolean), {
+        x: xMove,
+        y: yMove,
+        scale: 1.05,
+        duration: 1.5,
+        ease: "power2.out"
+      });
+    }
   });
 
-  document.addEventListener('mouseleave', () => {
-    reveal.classList.remove('visible');
-    
-    gsap.to([colosseum, reveal], {
-      x: 0,
-      y: 0,
-      scale: 1,
-      duration: 1.5,
-      ease: "power2.out"
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => {
+      gsap.to([cursorDot, cursorRing], { opacity: 1, duration: 0.3 });
     });
-  });
+    
+    wrapper.addEventListener('mouseleave', () => {
+      gsap.to([cursorDot, cursorRing], { opacity: 0, duration: 0.3 });
+      reveal.classList.remove('visible');
+      gsap.to([colosseum, reveal].filter(Boolean), {
+        x: 0, y: 0, scale: 1, duration: 1.5, ease: "power2.out"
+      });
+    });
+  }
 
-  // Cursor hover effect on interactable elements
-  const interactables = document.querySelectorAll('a, .btn, .btn-dark, .project-card, .service-card');
+  // Hide custom cursor on menu button to use normal cursor
+  if (navToggle) {
+    navToggle.addEventListener('mouseenter', () => {
+      gsap.to([cursorDot, cursorRing], { opacity: 0, duration: 0.2 });
+    });
+    navToggle.addEventListener('mouseleave', () => {
+      // Only show back if we are still in the hero wrapper
+      if (wrapper && wrapper.matches(':hover')) {
+        gsap.to([cursorDot, cursorRing], { opacity: 1, duration: 0.2 });
+      }
+    });
+  }
+
+  const interactables = document.querySelectorAll('a, button, .btn, .btn-dark, .project-card, .service-card, .service-list-item');
   interactables.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursorDot.classList.add('hovering');
@@ -1902,115 +2323,7 @@ Victoria Island, Lagos, Nigeria.</div>
     });
   });
 
-  // GSAP ScrollTrigger and Lenis Setup
-  gsap.registerPlugin(ScrollTrigger);
-
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-  });
-
-  lenis.on('scroll', ScrollTrigger.update);
-
-  gsap.ticker.add((time)=>{
-    lenis.raf(time * 1000);
-  });
-
-  gsap.ticker.lagSmoothing(0);
-
-  // Scroll animations
-  // Navbar Pill Animation
-  ScrollTrigger.create({
-    start: "top -50px",
-    onUpdate: (self) => {
-      if (self.direction === 1) {
-        navbar.classList.add('scrolled');
-      } else {
-        if (self.scroll() < 50) {
-          navbar.classList.remove('scrolled');
-        }
-      }
-    }
-  });
-
-  // Alternative simpler approach if needed:
-  // ScrollTrigger.create({
-  //   start: "top -80",
-  //   onEnter: () => navbar.classList.add('scrolled'),
-  //   onLeaveBack: () => navbar.classList.remove('scrolled'),
-  // });
-
-  const revealElements = document.querySelectorAll(".gs-reveal");
-  revealElements.forEach((el) => {
-    gsap.fromTo(el, 
-      { autoAlpha: 0, y: 50 }, 
-      { 
-        duration: 1, 
-        autoAlpha: 1, 
-        y: 0, 
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  });
-
-  // Smooth Hero Entrance Animation
-  const heroTl = gsap.timeline({delay: 0.6});
-  
-  heroTl.from(".hero-line", {
-    y: 30,
-    opacity: 0,
-    duration: 1.2,
-    stagger: 0.2,
-    ease: "power3.out"
-  })
-  .from(".hero-desc", {
-    y: 20,
-    opacity: 0,
-    duration: 1,
-    ease: "power2.out"
-  }, "-=0.8")
-  .fromTo(".btn", 
-    { y: 20, autoAlpha: 0 },
-    {
-      y: 0,
-      autoAlpha: 1,
-      duration: 1,
-      ease: "power2.out"
-    }, "-=0.7");
-
-  // Highlight Cards Stagger Animation
-  const brandCards = document.querySelectorAll('.brand-card');
-  if (brandCards.length > 0) {
-    gsap.fromTo(brandCards,
-      { autoAlpha: 0, y: 50 },
-      {
-        duration: 1,
-        autoAlpha: 1,
-        y: 0,
-        ease: "power3.out",
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: '.brand-cards-grid',
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  }
-
-  // Services Hover Interaction
+  // Services Image Reveal Logic
   const serviceItems = document.querySelectorAll('.service-list-item');
   const serviceImages = document.querySelectorAll('.services-drawing');
   
@@ -2023,31 +2336,80 @@ Victoria Island, Lagos, Nigeria.</div>
     });
   });
 
+  // Counting Effect
+  const counters = document.querySelectorAll('.count-up');
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    
+    ScrollTrigger.create({
+      trigger: counter,
+      start: "top 90%",
+      onEnter: () => {
+        gsap.to(counter, {
+          innerText: target,
+          duration: 2,
+          snap: { innerText: 1 },
+          ease: "power2.out"
+        });
+      },
+      once: true
+    });
+  });
+
+  // SCROLL & LENIS
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+
+  const revealElements = document.querySelectorAll(".gs-reveal");
+  revealElements.forEach((el) => {
+    gsap.fromTo(el, 
+      { autoAlpha: 0, y: 50 }, 
+      { 
+        duration: 1, autoAlpha: 1, y: 0, ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Smooth Hero Entrance
+  const heroTl = gsap.timeline({delay: 0.6});
+  heroTl.from(".hero-line", {
+    y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out"
+  })
+  .from(".hero-desc", {
+    y: 20, opacity: 0, duration: 1, ease: "power2.out"
+  }, "-=0.8")
+  .fromTo(".btn", 
+    { y: 20, autoAlpha: 0 },
+    { y: 0, autoAlpha: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+
   // Magnetic Button Effect
-  const allButtons = document.querySelectorAll('.nav-cta, .btn, .services-start-btn, .btn-pill, .nav-btn, .service-icon-btn, .item-link-btn');
-  
-  allButtons.forEach(btn => {
+  const magneticButtons = document.querySelectorAll('.nav-close-btn, .btn, .services-start-btn, .service-icon-btn, .item-link-btn');
+  magneticButtons.forEach(btn => {
     btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      
       gsap.to(btn, {
-        x: x * 0.3,
-        y: y * 0.3,
-        scale: 1.05,
-        duration: 0.4,
-        ease: "power2.out"
+        x: x * 0.3, y: y * 0.3, scale: 1.05, duration: 0.4, ease: "power2.out"
       });
     });
-    
     btn.addEventListener('mouseleave', () => {
       gsap.to(btn, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: "elastic.out(1, 0.3)"
+        x: 0, y: 0, scale: 1, duration: 0.6, ease: "elastic.out(1, 0.3)"
       });
     });
   });
